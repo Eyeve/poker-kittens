@@ -1,0 +1,11 @@
+
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+jwt.secret=
+jwt.expiration-min.base=60
+jwt.expiration-min.refresh=1440
