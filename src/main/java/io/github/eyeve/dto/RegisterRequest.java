@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record RegisterRequest(
-        @Email @NotBlank String username,
+        @NotBlank String username,
 
         /*
          * BCrypt only uses the first 72 bytes. The upper bound prevents giving users
