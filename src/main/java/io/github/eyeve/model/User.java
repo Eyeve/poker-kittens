@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -18,5 +20,8 @@ public class User {
     private String username;
     private String password;
 
-    private int rating;
+    private Double rating;
+    private Double rd;
+    private Double volatility;
+    private LocalDateTime lastRatingUpdate;
 }

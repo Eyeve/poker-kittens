@@ -78,3 +78,11 @@ app:
       secret-base64: ${APP_JWT_SECRET_BASE64}
       issuer: kittens-poker
       access-token-ttl: 15m
+
+rating:
+  glicko:
+    classic:
+      defaultRating: 1500
+      defaultRD: 350
+#      c: TODO
+
