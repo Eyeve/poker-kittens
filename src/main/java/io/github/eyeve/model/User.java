@@ -24,4 +24,8 @@ public class User {
     private Double rd;
     private Double volatility;
     private LocalDateTime lastRatingUpdate;
+
+    @ManyToOne
+    @JoinColumn(name = "lobby_id")
+    private Lobby lobby;
 }

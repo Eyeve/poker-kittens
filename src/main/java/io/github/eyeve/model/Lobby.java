@@ -15,8 +15,9 @@ public class Lobby {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long weight; // TODO rating system
+    @OneToMany(mappedBy = "lobby")
     private List<User> players;
+
     private LocalDateTime startTime; // ? Instant ZonedDateTime
     // TODO LobbyManager startGame()
 }

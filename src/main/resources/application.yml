@@ -75,7 +75,7 @@ server:
 app:
   security:
     jwt:
-      secret-base64: ${APP_JWT_SECRET_BASE64}
+      secret-base64: ${APP_JWT_SECRET_BASE64:MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDE=}
       issuer: kittens-poker
       access-token-ttl: 15m
 
@@ -84,5 +84,5 @@ rating:
     classic:
       defaultRating: 1500
       defaultRD: 350
-#      c: TODO
+      c: 100
 
