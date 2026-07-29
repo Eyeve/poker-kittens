@@ -16,7 +16,9 @@ public class Lobby {
     private Long id;
 
     @OneToMany(mappedBy = "lobby")
-    private List<User> players;
+    private List<User> members;
+
+    private boolean isRanked;
 
     private LocalDateTime startTime; // ? Instant ZonedDateTime
     // TODO LobbyManager startGame()

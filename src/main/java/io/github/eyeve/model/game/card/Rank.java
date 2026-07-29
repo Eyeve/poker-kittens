@@ -6,7 +6,7 @@ public enum Rank {
     FOUR,
     FIVE,
     SIX,
-    SEVEN,
+    SEVEN, // haha joke 67
     EIGHT,
     NINE,
     TEN,
