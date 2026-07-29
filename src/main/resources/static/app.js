@@ -72,9 +72,8 @@ form.addEventListener('submit', async (event) => {
 
     localStorage.setItem('pokerKittensToken', payload.accessToken);
     localStorage.setItem('pokerKittensTokenType', payload.tokenType || 'Bearer');
-    message.textContent = mode === 'login' ? 'Вход выполнен. Токен сохранен.' : 'Аккаунт создан. Токен сохранен.';
-    message.classList.add('success');
-    password.value = '';
+    localStorage.setItem('pokerKittensUsername', username);
+    window.location.assign('/lobby.html');
   } catch (error) {
     message.textContent = errorMessage(error);
   } finally {

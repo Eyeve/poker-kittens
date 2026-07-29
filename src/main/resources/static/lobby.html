@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173c2c">
+  <title>Poker Kittens | Лобби</title>
+  <link rel="stylesheet" href="lobby.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="/lobby.html" aria-label="Poker Kittens"><span>K</span><span>P</span><b>Poker Kittens</b></a>
+    <div class="profile"><span class="online-dot" aria-hidden="true"></span><span id="player-name">Игрок</span><button id="logout" type="button">Выйти</button></div>
+  </header>
+  <main class="layout">
+    <section class="lobby-heading">
+      <p class="eyebrow">Lobby</p>
+      <h1>Выберите стол</h1>
+      <p>Свободные места обновляются перед началом раздачи.</p>
+    </section>
+    <section class="tables" aria-label="Доступные столы">
+      <article class="table-card selected" data-table="Moonlight" data-stakes="10 / 20" data-players="4 из 6" data-buyin="200 - 1 000">
+        <div class="table-card-top"><span class="status open">Открыт</span><span class="table-icon">A</span></div>
+        <h2>Moonlight</h2><p>Texas Hold'em</p>
+        <dl><div><dt>Блайнды</dt><dd>10 / 20</dd></div><div><dt>Игроки</dt><dd>4 / 6</dd></div></dl>
+      </article>
+      <article class="table-card" data-table="Velvet Room" data-stakes="25 / 50" data-players="3 из 6" data-buyin="500 - 2 500">
+        <div class="table-card-top"><span class="status open">Открыт</span><span class="table-icon">K</span></div>
+        <h2>Velvet Room</h2><p>Texas Hold'em</p>
+        <dl><div><dt>Блайнды</dt><dd>25 / 50</dd></div><div><dt>Игроки</dt><dd>3 / 6</dd></div></dl>
+      </article>
+      <article class="table-card" data-table="High Roller" data-stakes="100 / 200" data-players="6 из 6" data-buyin="2 000 - 10 000" data-closed="true">
+        <div class="table-card-top"><span class="status full">Полный</span><span class="table-icon">Q</span></div>
+        <h2>High Roller</h2><p>Texas Hold'em</p>
+        <dl><div><dt>Блайнды</dt><dd>100 / 200</dd></div><div><dt>Игроки</dt><dd>6 / 6</dd></div></dl>
+      </article>
+    </section>
+    <aside class="seat-panel" aria-live="polite">
+      <p class="eyebrow">Ваше место</p>
+      <h2 id="table-name">Moonlight</h2>
+      <div class="seat-details"><div><span>Блайнды</span><strong id="table-stakes">10 / 20</strong></div><div><span>За столом</span><strong id="table-players">4 из 6</strong></div><div><span>Бай-ин</span><strong id="table-buyin">200 - 1 000</strong></div></div>
+      <button id="join-table" class="join-button" type="button">Занять место</button>
+      <p id="seat-message" class="seat-message"></p>
+    </aside>
+  </main>
+  <script src="lobby.js"></script>
+</body>
+</html>

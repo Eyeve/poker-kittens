@@ -31,7 +31,7 @@ public class SecurityConfig {
                  * JWT APIs are normally stateless and do not use browser cookies for auth.
                  * CSRF protects cookie-based sessions, so disabling it is correct here.
                  */.csrf(AbstractHttpConfigurer::disable).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index.html", "/styles.css", "/app.js", "/cat.jpg", "/favicon.ico").permitAll()
+                        .requestMatchers("/", "/index.html", "/styles.css", "/app.js", "/lobby.html", "/lobby.css", "/lobby.js", "/favicon.ico").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
                         .anyRequest().authenticated())
                 /*
