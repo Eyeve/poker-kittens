@@ -14,7 +14,7 @@ import io.github.eyeve.dto.LoginRequest;
 import io.github.eyeve.dto.RegisterRequest;
 import io.github.eyeve.service.JwtService;
 import io.github.eyeve.service.UserService;
-import io.github.eyeve.model.ApplicationUser;
+import io.github.eyeve.model.AuthUser;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -27,7 +27,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public AuthResponse register(@Valid @RequestBody RegisterRequest request) {
-        ApplicationUser user = userService.createUser(request.username(), request.password());
+        AuthUser user = userService.createUser(request.username(), request.password());
 
         /*
          * Returning a token immediately after registration is common for APIs.
@@ -47,7 +47,7 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(request.username(), request.password())
         );
 
-        ApplicationUser user = userService.requireByUsername(authentication.getName());
+        AuthUser user = userService.requireByUsername(authentication.getName());
         return jwtService.issueAccessToken(user);
     }
 

@@ -31,7 +31,7 @@ public class ClassicGlickoRatingEngine implements RatingEngine {
             List<User> enemies = new ArrayList<>(tableResult.sortedUsers());
             enemies.remove(user);
 
-            double rating = user.getRating() == null ? properties.defaultRating() : user.getRating();
+            double rating = user.getRating() == null ? properties.defaultRating() : user.getRating().getScore();
             double rd = currentRd.get(user.getId());
 
             List<Double> g = g(enemies, currentRd);
@@ -72,10 +72,10 @@ public class ClassicGlickoRatingEngine implements RatingEngine {
     private Map<Long, Double> getCurrentRD(List<User> users) {
         Map<Long, Double> map = new HashMap<>();
         for (User user : users) {
-            if (user.getRd() != null && user.getLastRatingUpdate() != null) {
+            if (user.getRating().getRd() != null && user.getRating().getLastRatingUpdate() != null) {
                 Long id = user.getId();
-                double rd = user.getRd();
-                double duration = Duration.between(user.getLastRatingUpdate(), LocalDateTime.now()).toDays(); // TODO
+                double rd = user.getRating().getRd();
+                double duration = Duration.between(user.getRating().getLastRatingUpdate(), LocalDateTime.now()).toDays(); // TODO
                 double newRd = Math.sqrt(rd * rd + properties.c() * properties.c() * duration);
                 map.put(id, Math.min(newRd, properties.defaultRD()));
             } else {
@@ -98,7 +98,7 @@ public class ClassicGlickoRatingEngine implements RatingEngine {
     private List<Double> E(User user, List<User> enemies, List<Double> g) {
         List<Double> result = new ArrayList<>();
         for (int i = 0; i < enemies.size(); i++) {
-            double e = 1 / (1 + Math.pow(10, -g.get(i) * (user.getRating() - enemies.get(i).getRating()) / 400));
+            double e = 1 / (1 + Math.pow(10, -g.get(i) * (user.getRating().getScore() - enemies.get(i).getRating().getScore()) / 400));
             result.add(e);
         }
         return result;

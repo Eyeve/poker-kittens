@@ -1,5 +1,6 @@
 package io.github.eyeve.service;
 
+import io.github.eyeve.repository.AuthUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -12,7 +13,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.eyeve.exception.DuplicateUsernameException;
-import io.github.eyeve.model.ApplicationUser;
+import io.github.eyeve.model.AuthUser;
 import io.github.eyeve.model.Role;
 
 @Service
@@ -23,39 +24,37 @@ public class UserService implements UserDetailsService {
      * In-memory storage keeps the example small and focused on security wiring.
      * Replace this map with a repository/JPA adapter in a real application.
      */
-    private final Map<String, ApplicationUser> usersByUsername = new ConcurrentHashMap<>();
+    private final AuthUserRepository authUserRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public ApplicationUser createUser(String username, String rawPassword) {
+    public AuthUser createUser(String username, String rawPassword) {
         String normalizedUsername = normalizeUsername(username);
 
-        ApplicationUser newUser = ApplicationUser.builder()
-                .id(UUID.randomUUID())
+        if (authUserRepository.existsByUsername(normalizedUsername)) {
+            throw new DuplicateUsernameException(normalizedUsername);
+        }
+
+        AuthUser user = AuthUser.builder()
                 .username(normalizedUsername)
                 .passwordHash(passwordEncoder.encode(rawPassword))
                 .role(Role.USER)
                 .build();
 
-        ApplicationUser existingUser = usersByUsername.putIfAbsent(normalizedUsername, newUser);
-        if (existingUser != null) {
-            throw new DuplicateUsernameException(normalizedUsername);
-        }
-
-        return newUser;
+        return authUserRepository.save(user);
     }
 
-    public Optional<ApplicationUser> findByUsername(String username) {
-        return Optional.ofNullable(usersByUsername.get(normalizeUsername(username)));
+    public Optional<AuthUser> findByUsername(String username) {
+        return authUserRepository.findByUsername(normalizeUsername(username));
     }
 
-    public ApplicationUser requireByUsername(String username) {
+    public AuthUser requireByUsername(String username) {
         return findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        ApplicationUser user = requireByUsername(username);
+        AuthUser user = requireByUsername(username);
 
         /*
          * Spring Security uses UserDetails during login. We keep the domain user

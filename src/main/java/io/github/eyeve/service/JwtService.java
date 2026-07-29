@@ -12,7 +12,7 @@ import java.util.List;
 
 import io.github.eyeve.dto.AuthResponse;
 import io.github.eyeve.config.SecurityProperties;
-import io.github.eyeve.model.ApplicationUser;
+import io.github.eyeve.model.AuthUser;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class JwtService {
     private final JwtEncoder jwtEncoder;
     private final SecurityProperties securityProperties;
 
-    public AuthResponse issueAccessToken(ApplicationUser user) {
+    public AuthResponse issueAccessToken(AuthUser user) {
         Instant issuedAt = Instant.now();
         Instant expiresAt = issuedAt.plus(securityProperties.accessTokenTtl());
 

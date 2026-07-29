@@ -17,13 +17,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
-    private String password;
-
-    private Double rating;
-    private Double rd;
-    private Double volatility;
-    private LocalDateTime lastRatingUpdate;
+    @Embedded
+    private Rating rating;
 
     @ManyToOne
     @JoinColumn(name = "lobby_id")
